@@ -21,3 +21,13 @@ app.use(cors());
 
 // SET UP OF THE STATIC DIRECTORY
 app.use(express.static(path.join(__dirname, 'public')));
+
+// BRING IN DATABASE CONFIG / CONNECT TO DATABSE
+const db = require('./config/keys').mongoURI;
+mongoose.connect(db, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log(`Database connected successfully ${db}`)
+}).catch( err => {
+    console.log(`Unable to connect with the database ${err}`)    
+});
