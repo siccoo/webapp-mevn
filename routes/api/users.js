@@ -118,11 +118,11 @@ router.post('/login', (req, res) => {
 /**
  * @route POST api/users/register
  * @desc Register the user
- * @access Public
+ * @access Private
  **/
 
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
-    
+
 })
 
 module.exports = router;
