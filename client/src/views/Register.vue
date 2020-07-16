@@ -52,3 +52,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.card {
+  width: 70%;
+  border-radius: none;
+}
+
+.btn {
+  border-radius: none;
+}
+
+.form-control {
+  border-radius: none;
+}
+
+</style>
