@@ -4,7 +4,11 @@
   "description": "Simple web application to handle login/signup authentication with vue.js",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run serve --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Chilaka Michael Obinna",
   "license": "MIT",
