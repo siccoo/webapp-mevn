@@ -53,6 +53,20 @@ router.post('/register', (req, res) => {
         password,
         email
     });
+
+    // HASH THE PASSWORD
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if(err) throw err;
+            newUser.password = hash;
+            newUser.save().then(user => {
+                return res.status(201).json({
+                    success: true,
+                    msg: "Hurray!!! User is now registered"
+                });
+            });
+        });
+    });
 }); 
 
 module.exports = router;

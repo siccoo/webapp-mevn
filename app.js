@@ -37,6 +37,10 @@ mongoose.connect(db, {
 //     return res.send("<h1>Hello World</h1>");
 // });
 
+// BRINGING IN USERS ROUTE
+const users = require('./routes/api/users');
+app.use('/api/users', users)
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
