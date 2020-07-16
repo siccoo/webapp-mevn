@@ -22,6 +22,9 @@ app.use(cors());
 // SET UP OF THE STATIC DIRECTORY
 app.use(express.static(path.join(__dirname, 'public')));
 
+// PASSPORT MIDDLEWARE
+app.use(passport.initialize());
+
 // BRING IN DATABASE CONFIG / CONNECT TO DATABSE
 const db = require('./config/keys').mongoURI;
 mongoose.connect(db, {
@@ -39,6 +42,7 @@ mongoose.connect(db, {
 
 // BRINGING IN USERS ROUTE
 const users = require('./routes/api/users');
+const passport = require('passport');
 app.use('/api/users', users)
 
 const PORT = process.env.PORT || 5000;

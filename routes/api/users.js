@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require(jsonwebtoken);
 const passport = require('passport');
 const User = require('../../model/User');
+const keys = require('../../config/keys').secret;
 
 /**
  * @route POST api/users/register
@@ -68,5 +69,60 @@ router.post('/register', (req, res) => {
         });
     });
 }); 
+
+/**
+ * @route POST api/users/register
+ * @desc Register the user
+ * @access Public
+ **/
+router.post('/login', (req, res) => {
+    User.findOne({ 
+            username: req.body.username 
+        }).then(user => {
+            if(!user) {
+                return res.status(404).json({
+                    msg: "Username is not found.",
+                    success: false
+                });
+            }
+
+            // COMPARING USERS PASSWORD
+            bcrypt.compare(req.body.password, user.password).then(isMatch => {
+                if(isMatch) {
+                    // USERS PASSWOERD IS CORRECT AND WE NEED TO SEND THE JSON WEB TOKEN FOR THAT
+                    const payload = {
+                        _id: user._id,
+                        username: user.username,
+                        name: user.name,
+                        email: user.email
+                    } 
+                    jwt.sign(payload, keys, {
+                        expiresIn: 604800
+                    }, (err, token) => {
+                        res.status(200).json({
+                            success: true,
+                            token: `Bearer ${token}`,
+                            msg: "Hurray!!! You now logged in."
+                        })
+                    })
+                } else {
+                    return res.status(404).json({
+                        msg: "Incorrect password.",
+                        success: false
+                    }); 
+                }
+            });
+        });
+});
+
+/**
+ * @route POST api/users/register
+ * @desc Register the user
+ * @access Public
+ **/
+
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+    
+})
 
 module.exports = router;
