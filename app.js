@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+const passport = require('passport');
 
 // INITIALIZE THE APP
 const app = express();
@@ -24,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // PASSPORT MIDDLEWARE
 app.use(passport.initialize());
+
+// BRINGING IN THE PASSPORT
+require('./config/passport')(passport);
+
 
 // BRING IN DATABASE CONFIG / CONNECT TO DATABSE
 const db = require('./config/keys').mongoURI;
