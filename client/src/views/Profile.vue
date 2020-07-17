@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <h1>Profile page</h1>
-    <div class="card">
+    <div class="card" v-if="user" >
       <ul class="list-group">
         <li class="list-group-item">Email: {{ user.email}}</li>
         <li class="list-group-item">Username: {{ user.username}}</li>

@@ -47,8 +47,12 @@ mongoose.connect(db, {
 
 // BRINGING IN USERS ROUTE
 const users = require('./routes/api/users');
-const passport = require('passport');
+// const passport = require('passport');
 app.use('/api/users', users)
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+})
 
 const PORT = process.env.PORT || 5000;
 
