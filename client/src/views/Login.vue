@@ -7,7 +7,7 @@
           <h4>LOGIN</h4>
         </div>
         <div class="card-body">
-          <form @click.prevent="loginUser">
+          <form @submit.prevent="loginUser">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" placeholder="Username" class="form-control" name="username" v-model="username" id="username">

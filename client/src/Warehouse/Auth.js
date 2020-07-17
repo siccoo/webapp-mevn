@@ -1,5 +1,5 @@
 import axios from 'axios';
-import router from '../router';
+// import router from '../router';
 
 const state = {
     token: localStorage.getItem('token') || '',
@@ -8,13 +8,6 @@ const state = {
 };
 
 const getters = {
-    // isLoggedIn: function(state) {
-    //     if(state.token != '') {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
     isLoggedIn: state => !!state.token,
     authState: state => state.status,
     user: state => state.user
@@ -24,7 +17,7 @@ const actions = {
 // LOGIN ACTION
 async login({ commit }, user){
     commit('auth_request');
-    let res = await axios.post('https://localhost:5000/api/users/login')
+    let res = await axios.post('https://localhost:5000/api/users/login', user)
     if(res.data.success) {
         const token = res.data.token;
         const user = res.data.user;
