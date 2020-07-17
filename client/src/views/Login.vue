@@ -7,7 +7,7 @@
           <h4>LOGIN</h4>
         </div>
         <div class="card-body">
-          <form action="">
+          <form @click.prevent="loginUser">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" placeholder="Username" class="form-control" name="username" v-model="username" id="username">
@@ -33,6 +33,11 @@ export default {
     return {
       username: "",
       password: ""
+    };
+  },
+  methods: {
+    loginUser() {
+      // console.log(this.username, this.password);
     }
   }
 }
