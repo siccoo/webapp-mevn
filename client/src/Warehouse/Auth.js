@@ -17,7 +17,7 @@ const actions = {
 // LOGIN ACTION
 async login({ commit }, user){
     commit('auth_request');
-    let res = await axios.post('https://localhost:5000/api/users/login', user)
+    let res = await axios.post('https://localhost:5000/api/users/login', user);
     if(res.data.success) {
         const token = res.data.token;
         const user = res.data.user;
@@ -30,7 +30,26 @@ async login({ commit }, user){
         commit('auth_success', token, user);
     }
     return res;
+},
+
+// REGISTER USER
+async register({ commit }, userData){
+    commit('register_request');
+    let res = await axios.post('https://localhost:5000/api/users/register', userData)
+    if(res.data.success !== undefined) {
+        commit('register_success');
+    }
+    return res;
+},
+
+// LOGGING OUT USER
+async logout ({ commit }) {
+    await localStorage.removeItem('token');
+    commit('logout');
+    delete axios.defaults.headers.common['Authorization'];
+    return 
 }
+
 };
 
 const mutations = {
@@ -40,6 +59,12 @@ const mutations = {
     auth_success(state, token, user) {
         state.token = token
         state.user = user
+        state.status = 'success'
+    },
+    register_request(state) {
+        state.status = 'loading'
+    },
+    register_success(state) {
         state.status = 'success'
     }
 };

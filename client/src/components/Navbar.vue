@@ -50,10 +50,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
    computed: {
      ...mapGetters(["isLoggedIn"])
+   },
+   methods: {
+      ...mapActions(['logout'])
    } 
 }
 </script>
