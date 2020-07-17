@@ -5,13 +5,14 @@ const state = {
     token: localStorage.getItem('token') || '',
     user: {},
     status: '',
-    errors: null
+    error: null
 };
 
 const getters = {
     isLoggedIn: state => !!state.token,
     authState: state => state.status,
-    user: state => state.user
+    user: state => state.user,
+    error: state => state.error
 };
 
 const actions = {
@@ -72,23 +73,34 @@ async logout ({ commit }) {
 
 const mutations = {
     auth_request(state) {
+        state.error = null
         state.status = 'loading'
     },
     auth_success(state, token, user) {
         state.token = token
         state.user = user
         state.status = 'success'
+        state.error = null
+    },
+    auth_error(state, err) {
+       state.error = err.response.data.msg 
     },
     register_request(state) {
+        state.error = null
         state.status = 'loading'
     },
     register_success(state) {
         state.status = 'success'
+        state.error = null
+    },
+    register_error(state, err) {
+        state.error = err.response.data.msg 
     }, 
     logout(state) {
         state.status = ''
         state.token = ''
         state.user = ''
+        state.error = null
     },
     profile_request(state) {
         state.status = 'loading'

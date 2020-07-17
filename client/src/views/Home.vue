@@ -202,7 +202,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* HOME SECTION STYLES STARTS */
 .home-section {
     /* background: url("../images/bg-intro-desktop.svg") no-repeat; */
