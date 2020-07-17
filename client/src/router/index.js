@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store/index';
 
 Vue.use(VueRouter)
 
@@ -13,24 +14,54 @@ Vue.use(VueRouter)
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
   }, 
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    meta: {
+      requiresGuest: true
+    }
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue')
+    component: () => import('../views/Register.vue'),
+    meta: {
+      requiresGuest: true
+    }
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue')
+    component: () => import('../views/Profile.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
 ]
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if(!store.getters.isLoggedIn) {
+
+      // REDIRECT TO THE LOGIN PAGE
+      next('/login');
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if(!store.getters.isLoggedIn) {
+      // REDIRECT TO THE LOGIN PAGE
+      next('/profile');
+    } else {
+      next();
+    }
+  } else {
+    next()
+  }
+});
 
 const router = new VueRouter({
   mode: 'history',

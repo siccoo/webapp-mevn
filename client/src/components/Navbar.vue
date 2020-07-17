@@ -34,7 +34,7 @@
             </router-link>
           </li>
           <li class="nav-item" v-if="!isLoggedIn">
-            <a to="/logout" class="nav-link">Logout
+            <a to="/logout" class="nav-link" @click.prevent="logoutUser">Logout
             </a>
           </li>
               
@@ -56,7 +56,10 @@ export default {
      ...mapGetters(["isLoggedIn"])
    },
    methods: {
-      ...mapActions(['logout'])
+      ...mapActions(['logout']),
+      logoutUser() {
+        this.logout();
+      }
    } 
 }
 </script>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import router from '../router';
+import router from '../router';
 
 const state = {
     token: localStorage.getItem('token') || '',
@@ -47,6 +47,7 @@ async logout ({ commit }) {
     await localStorage.removeItem('token');
     commit('logout');
     delete axios.defaults.headers.common['Authorization'];
+    router.push('/login');
     return 
 }
 
@@ -66,6 +67,11 @@ const mutations = {
     },
     register_success(state) {
         state.status = 'success'
+    }, 
+    logout(state) {
+        state.status = ''
+        state.token = ''
+        state.user = ''
     }
 };
 
