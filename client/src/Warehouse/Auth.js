@@ -4,7 +4,8 @@ import router from '../router';
 const state = {
     token: localStorage.getItem('token') || '',
     user: {},
-    status: ''
+    status: '',
+    errors: null
 };
 
 const getters = {
@@ -17,7 +18,8 @@ const actions = {
 // LOGIN ACTION
 async login({ commit }, user){
     commit('auth_request');
-    let res = await axios.post('https://localhost:5000/api/users/login', user);
+    try {
+        let res = await axios.post('https://localhost:5000/api/users/login', user);
     if(res.data.success) {
         const token = res.data.token;
         const user = res.data.user;
@@ -30,16 +32,23 @@ async login({ commit }, user){
         commit('auth_success', token, user);
     }
     return res;
+    } catch(err) {
+        commit('auth_error', err);
+    }
 },
 
 // REGISTER USER
 async register({ commit }, userData){
-    commit('register_request');
-    let res = await axios.post('https://localhost:5000/api/users/register', userData)
-    if(res.data.success !== undefined) {
-        commit('register_success');
+    try {
+        commit('register_request');
+            let res = await axios.post('https://localhost:5000/api/users/register', userData)
+            if(res.data.success !== undefined) {
+                commit('register_success');
+            }
+            return res;
+    } catch(err) {
+        commit('register_error', err)
     }
-    return res;
 },
 
 //  GETTING USER PROFILE

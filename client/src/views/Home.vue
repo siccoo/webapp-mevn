@@ -128,9 +128,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <a class="navbar-brand" href="#">
-            <img src="./assets/images/logo-2.png" alt="Easybank logo">
-          </a>
+          <router-link class="navbar-brand" to="/">EasyBank</router-link>
           <div class="icon-container">
             <span class="icon-stack">
               <a href="#">
@@ -207,7 +205,7 @@ export default {
 <style>
 /* HOME SECTION STYLES STARTS */
 .home-section {
-    background: url("../images/bg-intro-desktop.svg") no-repeat;
+    /* background: url("../images/bg-intro-desktop.svg") no-repeat; */
     padding: 180px 0px;
     background-size: 61% 150%;    
     position: relative;
