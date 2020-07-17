@@ -16,7 +16,7 @@
               <label for="username">Password</label>
                 <input type="password" placeholder="Password" class="form-control" name="password" v-model="password" id="password">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <input type="submit" class="btn btn-primary" value="Login" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             <router-link to="/register" class="card-link">Don't have an account?</router-link>
           </form>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -36,7 +36,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['login']),
     loginUser() {
+      let user = {
+        username: this.username,
+        password: this.password,
+      };
+      this.login(user)
+        .then(res => {
+          if(res.data.success) {
+            this.$router.push("/profile");
+          }
+        })
+          .catch(err => {
+            console.log(err)
+          });
       // console.log(this.username, this.password);
     }
   }

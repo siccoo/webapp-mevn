@@ -28,7 +28,7 @@
               <label for="confirm_password">Confirm Password</label>
                 <input type="password" placeholder="Confirm Password" class="form-control" name="confirm_password" v-model="confirm_password" id="confirm_password">
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <input type="submit" class="btn btn-primary" value="Register" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             <router-link to="/login" class="card-link">Already  have an account?</router-link>
           </form>

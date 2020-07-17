@@ -41,7 +41,14 @@ async login({ commit }, user){
 };
 
 const mutations = {
-
+    auth_request(state) {
+        state.status = 'loading'
+    },
+    auth_success(state, token, user) {
+        state.token = token
+        state.user = user
+        state.status = 'success'
+    }
 };
 
 export default {
